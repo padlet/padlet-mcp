@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.padlet/padlet",
+  "title": "Padlet",
+  "description": "Read, search, create and edit Padlet boards: posts, sections, comments, settings and sharing.",
+  "version": "1.0.1",
+  "websiteUrl": "https://padlet.com",
+  "repository": {
+    "url": "https://github.com/padlet/padlet-mcp",
+    "source": "github"
+  },
+  "icons": [
+    {
+      "src": "https://padlet.net/padlet-intelligence/padlet_crane_outlined.png",
+      "mimeType": "image/png",
+      "sizes": ["512x426"]
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.padlet.com/"
+    }
+  ]
+}
