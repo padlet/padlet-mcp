@@ -28,7 +28,9 @@ is not published here.
 - [Any other MCP client](#any-other-mcp-client)
 - [Signing in](#signing-in)
 - [What you can ask for](#what-you-can-ask-for)
+- [Tools](#tools)
 - [Toolsets](#toolsets)
+- [ChatGPT](#chatgpt)
 - [Limits and safety](#limits-and-safety)
 - [Support, privacy and terms](#support-privacy-and-terms)
 
@@ -121,31 +123,49 @@ For teams and projects:
 
 The agent replies with links to the padlets it worked on, so you can open them in Padlet.
 
+## Tools
+
+With the plain URL `https://mcp.padlet.com/` you get these 21 tools, whatever your library role:
+
+| Tools | What they do |
+| --- | --- |
+| `find_padlets`, `get_padlet`, `create_padlet` | Find your padlets, read one, and create a new one |
+| `update_padlet_heading`, `update_padlet_appearance`, `update_padlet_layout`, `update_padlet_engagement`, `update_padlet_post_fields`, `update_padlet_sharing` | Change a padlet's title, description and icon, its look, its layout, comments and reactions, what a post asks for, and who can open it |
+| `save_posts`, `save_sections`, `save_comments`, `delete_padlet_items` | Add and edit posts, sections and comments, and delete them |
+| `start_attachment_upload`, `complete_attachment_upload`, `analyze_post_attachments` | Attach a file from your computer, and read the files on posts |
+| `search_padlet_actions`, `describe_padlet_action`, `run_padlet_read_action`, `run_padlet_write_action`, `run_padlet_destructive_action` | Find and run every other Padlet action your account may use |
+
+The last five reach the rest of Padlet: padlet settings and moderation, collaborators,
+submission forms, breakout links, freezing, remaking, transferring, exporting, restoring deleted
+posts, whiteboard tools, automations, grading and grade sync to your LMS, Arcade activities,
+pinning and connecting posts, your account and the current time. If you are an owner, admin or
+teacher in a Padlet for Schools or Teams library, they also reach library administration.
+
+The tool names in the toolsets below still work on the plain URL, so a client that saved them
+keeps working.
+
 ## Toolsets
 
-The server groups its tools into toolsets. With the plain URL `https://mcp.padlet.com/` you get
-every toolset available to your account:
-
-| Toolset | Tools | What it covers |
-| --- | --- | --- |
-| `core` | 17 + 2 | Find, read and export padlets; create padlets; create, edit, pin, connect and restore posts; edit sections; add and delete comments; analyse attachments. Also brings the 2 file-upload tools for attaching a file from your computer. |
-| `utility` | 1 | Current date and time (`get_time`) |
-| `board_admin` | 29 | Per-padlet settings: appearance, layout, wallpaper, post fields and sorting, access and collaborators, submission forms, breakout links, freezing, remaking, automations, Arcade activities, grading and grade sync to your LMS, whiteboard tools |
-| `library` | 24 | Padlet for Schools and Teams library admin: members and invites, onboarding, Google/Microsoft sign-in and SAML SSO, approved domains, permissions, content safety, allowed attachment types |
-
-So the plain URL serves **49 tools**, or **73** if you are an owner, admin or teacher in a
-Padlet for Schools or Teams library. The `library` toolset appears only for those accounts.
-
-Some clients limit how many tools a model can see across all connected servers. To load only part
-of Padlet, add `?toolsets=` with a comma-separated list:
+To load named tools instead, add `?toolsets=` with a comma-separated list. Some clients limit how
+many tools a model can see across all connected servers, so you can also load only part of
+Padlet:
 
 ```
 https://mcp.padlet.com/?toolsets=core
 https://mcp.padlet.com/?toolsets=core,board_admin
 ```
 
-`?toolsets=core` gives 19 tools (the 17 core tools plus the 2 upload tools). Unknown toolset
-names are ignored.
+| Toolset | Tools | What it covers |
+| --- | --- | --- |
+| `core` | 17 + 2 | Find, read and export padlets; create padlets; create, edit, pin, connect and restore posts; edit sections; add and delete comments; analyse attachments. Also brings the 2 file-upload tools for attaching a file from your computer. |
+| `utility` | 1 | Current date and time (`get_time`) |
+| `board_admin` | 30 | Per-padlet settings: appearance, layout, wallpaper, post fields and sorting, access and collaborators, submission forms, breakout links, freezing, remaking, transferring to another of your workspaces, automations, Arcade activities, grading and grade sync to your LMS, whiteboard tools |
+| `library` | 24 | Padlet for Schools and Teams library admin: invites and invite links, onboarding, Google/Microsoft sign-in and SAML SSO, approved domains, permissions, content safety, allowed attachment types |
+
+`?toolsets=core,utility,board_admin,library` gives **50 tools**, or **74** if you are an owner,
+admin or teacher in a Padlet for Schools or Teams library. The `library` toolset appears only for
+those accounts. `?toolsets=core` gives 19 tools (the 17 core tools plus the 2 upload tools).
+Unknown toolset names are ignored.
 
 For a strictly read-only connection, use `https://mcp.padlet.com/read-only`. It serves 5 tools
 that only find and read padlets (`get_current_user_info`, `list_padlets`, `search_walls`,
@@ -170,9 +190,9 @@ that only find and read padlets (`get_current_user_info`, `list_padlets`, `searc
 `update_padlet_access_settings`, `invite_email_as_padlet_collaborator`,
 `update_delete_padlet_collaborator_user`, `update_submission_form_settings`,
 `update_breakout_settings`, `delete_custom_fields`, `freeze_padlet`, `create_automation`,
-`delete_automations`, `get_padlet_automations`, `remake_padlet`, `update_auto_remake_settings`,
-`create_padlet_arcade_activity`, `grade_posts`, `sync_grades_to_lms`,
-`get_whiteboard_tool_settings`, `update_whiteboard_tool_settings`
+`delete_automations`, `get_padlet_automations`, `remake_padlet`, `transfer_padlet`,
+`update_auto_remake_settings`, `create_padlet_arcade_activity`, `grade_posts`,
+`sync_grades_to_lms`, `get_whiteboard_tool_settings`, `update_whiteboard_tool_settings`
 
 **library:** `list_libraries`, `get_library_info`, `get_library_invite_links`,
 `update_library_invite_links`, `send_library_email_invites`, `remove_library_email_invites`,
@@ -180,20 +200,31 @@ that only find and read padlets (`get_current_user_info`, `list_padlets`, `searc
 `complete_library_onboarding_step`, `get_library_oauth_settings`,
 `update_library_oauth_settings`, `get_library_saml_settings`, `create_library_saml_connection`,
 `update_library_saml_connection`, `validate_saml_metadata_url`,
-`get_library_approved_domains`, `add_library_approved_domain`,
+`get_library_approved_domains`, `request_library_domain_approval`,
 `remove_library_approved_domains`, `get_library_permissions`, `update_library_permission`,
 `get_library_content_safety`, `update_library_content_safety`,
 `get_library_attachment_type_settings`, `update_library_attachment_type`
 
 </details>
 
+## ChatGPT
+
+Padlet's app in ChatGPT connects to this same server, but lists one tool for each operation. It
+has no action tools. It lists the first 16 tools above, plus each toolset tool that does a job
+none of them covers, such as `freeze_padlet`, `remake_padlet` and the library tools. A new Padlet
+tool appears in ChatGPT after OpenAI approves it.
+
 ## Limits and safety
 
 - **Everything runs as you.** There is no shared service account. Library tools still check
   your role in that library on every call.
 - **Changes you can undo, and changes you can't.** Deleted posts and sections can be restored
-  with `restore_posts_and_sections`. Tools that delete or overwrite something are marked as
-  destructive, so clients that honour MCP tool annotations can ask you before running them.
+  with `restore_posts_and_sections`. A tool is marked destructive when it overwrites what a person
+  wrote, deletes something, or changes a whole library in a way that can't be put back exactly.
+  Clients that honour MCP tool annotations can ask you before running those tools. On the plain
+  URL they are `update_padlet_heading`, `update_padlet_sharing`, `save_posts`, `save_sections`,
+  `save_comments`, `delete_padlet_items`, `complete_attachment_upload` and
+  `run_padlet_destructive_action`, which runs every destructive action.
 - **Sandbox (whiteboard) padlets** are only partly supported; the other padlet formats are
   fully supported.
 
