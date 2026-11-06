@@ -142,7 +142,9 @@ pinning and connecting posts, your account and the current time. If you are an o
 teacher in a Padlet for Schools or Teams library, they also reach library administration.
 
 The tool names in the toolsets below still work on the plain URL, so a client that saved them
-keeps working.
+keeps working. The older tools these tools replaced, such as `get_padlet_content`, `list_padlets`
+and `update_posts`, no longer work anywhere. A call to one of them gets an error that names the
+tool to use instead.
 
 ## Toolsets
 
@@ -157,42 +159,39 @@ https://mcp.padlet.com/?toolsets=core,board_admin
 
 | Toolset | Tools | What it covers |
 | --- | --- | --- |
-| `core` | 17 + 2 | Find, read and export padlets; create padlets; create, edit, pin, connect and restore posts; edit sections; add and delete comments; analyse attachments. Also brings the 2 file-upload tools for attaching a file from your computer. |
+| `core` | 15 + 2 | Find, read and export padlets; create padlets and change their title, description and icon; add, edit, delete, pin, connect and restore posts; add, edit and delete sections and comments; analyse attachments. Also brings the 2 file-upload tools for attaching a file from your computer. |
 | `utility` | 1 | Current date and time (`get_time`) |
-| `board_admin` | 30 | Per-padlet settings: appearance, layout, wallpaper, post fields and sorting, access and collaborators, submission forms, breakout links, freezing, remaking, transferring to another of your workspaces, automations, Arcade activities, grading and grade sync to your LMS, whiteboard tools |
+| `board_admin` | 23 | Per-padlet settings: appearance and wallpaper, layout and sorting, post fields, comments and reactions, content settings, sharing and collaborators, submission forms, breakout links, freezing, remaking, transferring to another of your workspaces, automations, Arcade activities, grading and grade sync to your LMS, whiteboard tools |
 | `library` | 24 | Padlet for Schools and Teams library admin: invites and invite links, onboarding, Google/Microsoft sign-in and SAML SSO, approved domains, permissions, content safety, allowed attachment types |
 
-`?toolsets=core,utility,board_admin,library` gives **50 tools**, or **74** if you are an owner,
+`?toolsets=core,utility,board_admin,library` gives **41 tools**, or **65** if you are an owner,
 admin or teacher in a Padlet for Schools or Teams library. The `library` toolset appears only for
-those accounts. `?toolsets=core` gives 19 tools (the 17 core tools plus the 2 upload tools).
+those accounts. `?toolsets=core` gives 17 tools (the 15 core tools plus the 2 upload tools).
 Unknown toolset names are ignored.
 
-For a strictly read-only connection, use `https://mcp.padlet.com/read-only`. It serves 5 tools
-that only find and read padlets (`get_current_user_info`, `list_padlets`, `search_walls`,
-`get_padlet_content`, `export_padlet`) and can't create or change anything.
+For a strictly read-only connection, use `https://mcp.padlet.com/read-only`. It serves 4 tools
+that only find and read padlets (`get_current_user_info`, `find_padlets`, `get_padlet`,
+`export_padlet`) and can't create or change anything.
 
 <details>
 <summary>All tool names by toolset</summary>
 
-**core:** `get_current_user_info`, `list_padlets`, `search_walls`, `get_padlet_content`,
-`export_padlet`, `create_padlet`, `update_padlet_title_description`, `create_posts`,
-`update_posts`, `update_section`, `pin_post`, `create_post_connection`,
-`delete_post_connection`, `restore_posts_and_sections`, `add_comment_to_post`,
-`delete_comment`, `analyze_post_attachments`. Upload tools served with core:
+**core:** `get_current_user_info`, `find_padlets`, `get_padlet`, `export_padlet`,
+`create_padlet`, `update_padlet_heading`, `save_posts`, `save_sections`, `save_comments`,
+`delete_padlet_items`, `analyze_post_attachments`, `restore_posts_and_sections`, `pin_post`,
+`create_post_connection`, `delete_post_connection`. Upload tools served with core:
 `start_attachment_upload`, `complete_attachment_upload`.
 
 **utility:** `get_time`
 
-**board_admin:** `update_padlet_icon`, `update_padlet_appearance`, `update_padlet_layout`,
-`update_padlet_wallpaper`, `update_padlet_map_style`, `get_padlet_post_properties`,
-`update_padlet_post_properties`, `update_padlet_post_sort`, `update_padlet_settings`,
-`get_padlet_content_settings`, `update_padlet_content_settings`, `get_padlet_access_settings`,
-`update_padlet_access_settings`, `invite_email_as_padlet_collaborator`,
+**board_admin:** `update_padlet_appearance`, `update_padlet_layout`,
+`update_padlet_post_fields`, `update_padlet_engagement`, `get_padlet_content_settings`,
+`update_padlet_content_settings`, `update_padlet_sharing`, `invite_email_as_padlet_collaborator`,
 `update_delete_padlet_collaborator_user`, `update_submission_form_settings`,
-`update_breakout_settings`, `delete_custom_fields`, `freeze_padlet`, `create_automation`,
-`delete_automations`, `get_padlet_automations`, `remake_padlet`, `transfer_padlet`,
-`update_auto_remake_settings`, `create_padlet_arcade_activity`, `grade_posts`,
-`sync_grades_to_lms`, `get_whiteboard_tool_settings`, `update_whiteboard_tool_settings`
+`update_breakout_settings`, `freeze_padlet`, `create_automation`, `delete_automations`,
+`get_padlet_automations`, `remake_padlet`, `transfer_padlet`, `update_auto_remake_settings`,
+`create_padlet_arcade_activity`, `grade_posts`, `sync_grades_to_lms`,
+`get_whiteboard_tool_settings`, `update_whiteboard_tool_settings`
 
 **library:** `list_libraries`, `get_library_info`, `get_library_invite_links`,
 `update_library_invite_links`, `send_library_email_invites`, `remove_library_email_invites`,
